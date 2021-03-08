@@ -33,8 +33,8 @@ if __name__ == '__main__':
         .add("id", IntegerType(), True) \
         .add("has_debt", BooleanType(), True) \
         .add("has_financial_dependents", BooleanType(), True) \
-        .add("has_student_loans", BooleanType(), True) \
-        .add("income", DoubleType(), True)
+        .add("has_student_loans", BooleanType()) \
+        .add("income", DoubleType(), False)
 
     fin_df = spark.read \
         .option("header", "false") \
