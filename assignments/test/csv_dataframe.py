@@ -30,11 +30,11 @@ if __name__ == '__main__':
     print("\nCreating dataframe ingestion CSV file using 'SparkSession.read.format()'")
 
     fin_schema = StructType() \
-        .add("id", IntegerType(), True) \
-        .add("has_debt", BooleanType(), True) \
+        .add("id", IntegerType(), False) \
+        .add("has_debt", BooleanType(), False) \
         .add("has_financial_dependents", BooleanType(), True) \
         .add("has_student_loans", BooleanType(),True) \
-        .add("income", DoubleType(), True)
+        .add("income", DoubleType())
 
     fin_df = spark.read \
         .option("header", "false") \
