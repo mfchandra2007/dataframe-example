@@ -30,16 +30,17 @@ if __name__ == '__main__':
     print("\nCreating dataframe ingestion CSV file using 'SparkSession.read.format()'")
 
     fin_schema = StructType() \
-        .add("id", IntegerType(),True) \
-        .add("has_debt", BooleanType(),True) \
-        .add("has_financial_dependents", BooleanType(),True) \
+        .add("id", IntegerType(), True) \
+        .add("has_debt", BooleanType(), True) \
+        .add("has_financial_dependents", BooleanType(), True) \
         .add("has_student_loans", BooleanType(), True) \
         .add("income", DoubleType(), True)
 
     fin_df = spark.read \
         .option("header", "false") \
         .option("delimiter", ",") \
-        .option("schema", "fin_schema") \
+        .format("csv") \
+        .schema(fin_schema) \
         .load("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/finances.csv")
 
     fin_df.printSchema()
