@@ -40,8 +40,10 @@ if __name__ == '__main__':
         .option("header", "false") \
         .option("delimiter", ",") \
         .option("schema", "fin_schema") \
-        .load("S3a://" + app_conf["s3_config"]["s3_bucket"] + "/finances.csv")
+        .load("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/finances.csv")
 
     fin_df.printSchema()
     fin_df.show()
-    
+
+    spark.stop()
+# spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4" assignments/test/csv_dataframe.py
