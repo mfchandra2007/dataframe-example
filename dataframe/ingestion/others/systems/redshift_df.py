@@ -37,13 +37,14 @@ if __name__ == '__main__':
 
     jdbc_url = ut.get_redshift_jdbc_url(app_secret)
     print(jdbc_url)
-    txn_df = spark.read\
+    txn_df = spark.read \
         .format("io.github.spark_redshift_community.spark.redshift") \
         .option("url", jdbc_url) \
         .option("query", app_conf["redshift_conf"]["query"]) \
         .option("forward_spark_s3_credentials", "true") \
-        .option("tempdir", "s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/temp") \
         .load()
+       # .option("tempdir", "s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/temp") \
+       # .load()
 
     txn_df.show(5, False)
 
