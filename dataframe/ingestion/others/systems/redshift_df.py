@@ -42,9 +42,8 @@ if __name__ == '__main__':
         .option("url", jdbc_url) \
         .option("query", app_conf["redshift_conf"]["query"]) \
         .option("forward_spark_s3_credentials", "true") \
+        .option("tempdir", "s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/temp") \
         .load()
-       # .option("tempdir", "s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/temp") \
-       # .load()
 
     txn_df.show(5, False)
 
