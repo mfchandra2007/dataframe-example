@@ -2,7 +2,7 @@ from pyspark.sql import SparkSession
 import yaml
 import os.path
 #from model.Student import Student
-import Student
+from Student import Student
 if __name__ == '__main__':
 
     os.environ["PYSPARK_SUBMIT_ARGS"] = (
