@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, IntegerType, BooleanType,DoubleType
-import os.path
+from pyspark.sql.types import StructType, IntegerType, BooleanType, DoubleType
 import yaml
+import os.path
 
 if __name__ == '__main__':
     # Create the SparkSession
@@ -14,8 +14,8 @@ if __name__ == '__main__':
     spark.sparkContext.setLogLevel('ERROR')
 
     current_dir = os.path.abspath(os.path.dirname(__file__))
-    app_config_path = os.path.abspath(current_dir + "/../../" + "application.yml")
-    app_secrets_path = os.path.abspath(current_dir + "/../../" + ".secrets")
+    app_config_path = os.path.abspath(current_dir + "/../../../" + "application.yml")
+    app_secrets_path = os.path.abspath(current_dir + "/../../../" + ".secrets")
 
     conf = open(app_config_path)
     app_conf = yaml.load(conf, Loader=yaml.FullLoader)
@@ -30,11 +30,11 @@ if __name__ == '__main__':
     print("\nCreating dataframe ingestion CSV file using 'SparkSession.read.format()'")
 
     fin_schema = StructType() \
-        .add("id", IntegerType(), False) \
-        .add("has_debt", BooleanType(), False) \
+        .add("id", IntegerType(), True) \
+        .add("has_debt", BooleanType(), True) \
         .add("has_financial_dependents", BooleanType(), True) \
-        .add("has_student_loans", BooleanType(),True) \
-        .add("income", DoubleType())
+        .add("has_student_loans", BooleanType(), True) \
+        .add("income", DoubleType(), True)
 
     fin_df = spark.read \
         .option("header", "false") \
@@ -46,5 +46,11 @@ if __name__ == '__main__':
     fin_df.printSchema()
     fin_df.show()
 
-    spark.stop()
-# spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4" assignments/test/csv_dataframe.py
+    print("Creating dataframe ingestion CSV file using 'SparkSession.read.csv()',")
+
+    finance_df = spark.read \
+        .option("header", "True") \
+        .option("delimiter", True) \
+        .option("inforSchema", True) \
+        .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/finances.csv") \
+        .toDF("id", "has_debt", "has_financial_dependents", "has_student_loans", "income")

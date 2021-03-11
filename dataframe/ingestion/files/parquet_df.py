@@ -42,6 +42,7 @@ if __name__ == '__main__':
     print("Summery of NYC Open Market Order (OMO) charges dataset,")
     nyc_omo_df.describe().show()
 
+
     print("OMO frequency distribution of different Boroughs,")
     nyc_omo_df.groupBy("Boro") \
         .agg({"Boro": "count"}) \

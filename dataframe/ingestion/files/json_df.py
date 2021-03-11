@@ -37,7 +37,7 @@ if __name__ == '__main__':
     company_df.printSchema()
     company_df.show(5, False)
 
-    flattened_df = company_df.select(col("company"), explode(col("employees")).alias("employee"))
+    flattened_df = company_df.select(col("company"), explode(col("employees")))
     flattened_df.show()
 
     flattened_df \
