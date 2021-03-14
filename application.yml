@@ -2,8 +2,8 @@ s3_conf:
   s3_bucket: mfchandra
 
 sftp_conf:
-    filetype: csv
-    delimiter: |
+    filetype: "csv"
+    delimiter: "|"
     directory: /home/ubuntu/data
 
 mysql_conf:
