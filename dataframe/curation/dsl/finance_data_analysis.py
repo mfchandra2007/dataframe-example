@@ -49,6 +49,10 @@ if __name__ == '__main__':
     finance_df\
         .withColumn("AccountDetails", concat_ws(" - ", "AccountNumber", "Description"))\
         .show(5, False)
+    # Display olny accountdestaisl
+    finance_df\
+        .select("AccountDetails")\
+        .show(5, False)
 
     agg_finance_df = finance_df\
         .groupBy("AccountNumber")\

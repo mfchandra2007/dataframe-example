@@ -1,8 +1,8 @@
 from pyspark.sql import SparkSession
 import yaml
 import os.path
-#from model.Student import Student
-from Student import Student
+from model.Student import Student
+
 if __name__ == '__main__':
 
     os.environ["PYSPARK_SUBMIT_ARGS"] = (
@@ -41,4 +41,4 @@ if __name__ == '__main__':
         .option("collection", app_conf["mongodb_config"]["collection"])\
         .save()
 
-# spark-submit --packages "org.mongodb.spark:mongo-spark-connector_2.11:2.4.2" dataframe/provision/df_mongo.py
+# spark-submit --packages "org.mongodb.spark:mongo-spark-connector_2.11:2.4.2" dataframe/provision/df_mongo.
