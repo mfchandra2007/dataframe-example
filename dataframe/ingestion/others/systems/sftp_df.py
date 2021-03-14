@@ -20,15 +20,15 @@ if __name__ == '__main__':
     app_conf = yaml.load(conf, Loader=yaml.FullLoader)
     secret = open(app_secrets_path)
     app_secret = yaml.load(secret, Loader=yaml.FullLoader)
-
+    # Read the data from csv file using sftp server
     ol_txn_df = spark.read\
         .format("com.springml.spark.sftp")\
         .option("host", app_secret["sftp_conf"]["hostname"])\
         .option("port", app_secret["sftp_conf"]["port"])\
         .option("username", app_secret["sftp_conf"]["username"])\
         .option("pem", os.path.abspath(current_dir + "/../../../../" + app_secret["sftp_conf"]["pem"]))\
-        .option("fileType", "csv")\
-        .option("delimiter", "|")\
+        .option("fileType", app_conf["sftp_conf"]["fileType"])\
+        .option("delimiter",app_conf["sftp_conf"]["delimiter"])\
         .load(app_conf["sftp_conf"]["directory"] + "/receipts_delta_GBR_14_10_2017.csv")
 
     ol_txn_df.show(5, False)
