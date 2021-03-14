@@ -21,6 +21,8 @@ if __name__ == '__main__':
     secret = open(app_secrets_path)
     app_secret = yaml.load(secret, Loader=yaml.FullLoader)
     # Read the data from csv file using sftp server
+    sftp_path = app_conf["sftp_conf"]["directory"] + "/receipts_delta_GBR_14_10_2017.csv"
+    print("sftp path - " + sftp_path)
     ol_txn_df = spark.read\
         .format("com.springml.spark.sftp")\
         .option("host", app_secret["sftp_conf"]["hostname"])\
