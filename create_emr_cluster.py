@@ -14,7 +14,7 @@ def lambda_handler(event, context):
         'KeepJobFlowAliveWhenNoSteps': True,
         'TerminationProtected': False,
         'Ec2SubnetId': 'subnet-b51b2fd3',
-        'EmrManagedMasterSecurityGroup': 'sg-08fc4e5f12c5bb9c7',
+        'EmrManagedMasterSecurityGroup': 'sg-00e712ec1b09f676e',
         'EmrManagedSlaveSecurityGroup':  'sg-0e9ebbfd18d0669a8'
     }
 
